@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Carrito</title>
+        <link rel="stylesheet" href="css/estilo_inicio.css"/>
+    </head>
+    <body>
+        <header>
+            <h1><%= title %></h1>
+        </header>
+        <div>
+            <h2>Usuarios</h2>
+            <% Usuarios.forEach(function(Usuarios) { %>
+                <input type="text" readonly ="readonly" value="<%= Usuarios.id_usu %>" >
+                <input type="text" readonly ="readonly" value="<%= Usuarios.nom_usu %>" >
+                <input type="text" readonly ="readonly" value="<%= Usuarios.cash_usu %>" ><br>    
+            <% }); %> 
+        </div>
+        <div>
+            <h2>Estados</h2>
+            <% Estados.forEach(function(Estados) { %>
+                <input type="text" readonly ="readonly" value="<%= Estados.id_est %>" >
+                <input type="text" readonly ="readonly" value="<%= Estados.nom_est %>" >
+                <input type="text" readonly ="readonly" value="<%= Estados.pre_est %>" ><br>    
+            <% }); %>
+        </div>
+        <div>
+            <h2>Municipios</h2>
+            <% Municipios.forEach(function(Municipios) { %>
+                <input type="text" readonly ="readonly" value="<%= Municipios.id_mun %>" >
+                <input type="text" readonly ="readonly" value="<%= Municipios.nom_mun %>" >
+                <input type="text" readonly ="readonly" value="<%= Municipios.pre_mun %>" ><br>    
+            <% }); %>
+        </div>
+        <div>
+            <h2>Eliminar usuario</h2>
+            <form action="DropUsu" method="post">
+                <input type="text" name="nombre" placeholder="Nombre del usuario">
+                <input type="submit" value="Eliminar">
+            </form>
+        </div>
+        <div>
+            <h2>Eliminar estado</h2>
+            <form action="DropState" method="post">
+                <input type="number" name="id" placeholder="Nombre del estado">
+                <input type="submit" value="Eliminar" >
+            </form>
+        </div>
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/AJAX.js"></script>
+    </body>
+</html>

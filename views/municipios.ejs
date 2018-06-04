@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Municipios</title>
+        <link rel="stylesheet" href="css/estilo_inicio.css"/>
+         <link rel="stylesheet" href="css/api.css"/>
+    </head>
+    <body>
+        <header>
+            <h1><%= title %></h1>
+        </header>
+        <div>
+            <% Productos.forEach(function(Productos) { %>
+              <form name ="Municipios" action="anadir" method="post">
+                <input type="text" name="Cat" readonly="readonly" value="<%= Productos.category %>">
+                <input type="text" name="NomLoc" readonly="readonly" value="<%= Productos.nom_mun %>">
+                <input type="text" name="PreLoc" readonly="readonly" value="<%= Productos.pre_mun %>">
+                <div style="visibility: hidden">
+                  <input type="text" name="IdLoc" readonly="readonly" value="<%= Productos.id_mun %>">
+                </div>
+                <input type="submit" value="Comprar" id="Comprar"  >
+              </form><br>
+            <% }); %>
+        </div>
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+     <script type="text/javascript" src="/javascripts/AJAX.js"></script>
+     <footer>
+     </footer>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+body{
+	background-color: #585858;
+}
+header{
+	text-align: center;
+	font-family: fantasy;
+}	
+main{
+	align-content: center;
+	text-align: center;
+	display: flex;
+	padding: 1%;
+	margin: 0 auto;
+	background-color: #797D7F; 
+}
+main > img{
+	height: 10%;
+	width: 10%;
+	margin: 1%;
+}

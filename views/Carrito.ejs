@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Carrito</title>
+        <link rel="stylesheet" href="css/estilo_index.css"/>
+    </head>
+    <body>
+        <header>
+            <h1><%= title %></h1>
+        </header>>
+        <div>
+        <% if (Productos) { %>
+        <form action="compra" method="post">
+            <% Productos.forEach(function(Productos) { %>
+                <input type="text" name="Cat" id="nombre" readonly="readonly" value="<%= Productos.id_loc %>">
+                <input type="text" name="Nom" readonly="readonly" value="<%= Productos.nom_loc %>">
+                <input type="text" name="Pre" readonly="readonly" value="<%= Productos.pre_loc %>">
+                <div style="visibility: hidden;">
+                  <input type="text" name="Id" readonly="readonly " value="<%= Productos.id_id%>">
+                </div>
+                
+                <br>
+            <% }); %>
+            <h3>Precio total <%= Precio%></h3>
+            <input type="submit" value="Finalizar comprar">
+        </form>
+        <div>
+            <form>
+                <div style="visibility: hidden;">
+                    <input type="text" name="Nom" readonly="readonly" value="<%= Productos.nom_loc %>">
+                </div>
+                <input type="submit" value="Eliminar del carrito">
+            </form>
+        </div>
+        </div>
+         <% } %>
+         <% if (Descripcion) {%>
+         <div><h2>No tiene productos agregados al carrito</h2></div>
+         <% } %>
+    <a href="/inicio">Página principal</a>
+    <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/javascripts/AJAX.js"></script>
+    </body>
+</html>

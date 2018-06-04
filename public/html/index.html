@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/css/estilo_index.css"/>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Carrito de compras</title>
+</head>
+<body>
+	<header>
+		<i class="fa fa-shopping-cart" style="font-size: 60px; margin-right: 5px;" ></i>
+		<h1>Carrito de compras</h1>
+	</header>
+	<main>
+	<form name="Inicias" action ="/users/login" method="POST">
+		<h2>Iniciar sesión</h2>
+		<input type="text" name="nombreusu" placeholder="Nombre">
+		<input type="password" name="password" placeholder="Contraseña"><br>
+		<input type="submit" value="Iniciar sesión" class="boton" >
+	</form>
+	<form name="Registro" action ="register" method="POST">
+		<h2>Registrarte</h2>
+		<input type="text" name="nombreusu" placeholder="Nombre de usuario">
+		<input type="password" name="password" placeholder="Contraseña"><br>
+		<input type="number" name="dinero" placeholder="Dinero inicial" max="30000000" min="1">
+		<input type="submit" value="Registrar" class="boton">
+		<div></div>
+	</form>
+	</main>
+	<footer>
+
+	</footer>
+</body>
+</html>
