@@ -16,6 +16,7 @@ function guardar(e) {
         }
     }
 }
+sdjhbjh
 function tabla(longitud, json) {
     for (var i = 0; i <= longitud; i++) {
         var formulario = document.createElement("form");
