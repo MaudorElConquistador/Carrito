@@ -7,37 +7,24 @@
     </head>
     <body>
         <header>
-        <i class="fa fa-user" id="ajustes"></i>
-        <p>Bienvenido <%= nom %></p>
-        <i class="fa fa-shopping-cart" style="font-size: 60px; margin-left: 70%;" ></i>
+            <p>Bienvenido <%= nom %></p>
+            <a href="/compra">Ir a su carrito</a>
         </header>
-        <h2>Ir municipios de los estados</h2>
-        <div id="contimagen">
-        <% Productos.forEach(function(Productos) { %>
-            <div id="imagentit">
-                <form name="Estado" action="estados" method="POST">
-                <input type="submit" name="button" value="<%= Productos.nom_est %>" >
-                </form>
-                <img src="<%= Productos.img_est %>" id="imagen">
-            </div>
-        <% }); %>
-        <div>
-          <h2>Estado que puedes comprar</h2>
-            <% Productos.forEach(function(Productos) { %>
-                 <form name="Municipio" action="anadir" method="POST">
-                    <input type="text" name="Cat" readonly="readonly" value="<%= Productos.category %>">
-                    <input type="text" name="NomLoc" readonly="readonly" value="<%= Productos.nom_est %>">
-                    <input type="text" name="PreLoc" readonly="readonly" value="<%= Productos.pre_est %>" >
-                    <div style="visibility: hidden">
-                      <input type="text" name="IdLoc" readonly="readonly" value="<%= Productos.id_est %>">
-                    </div>
-                    <input type="submit" value="Comprar">
-                </form><br>
-            <% }); %>
+        <h2>Eliga el </h2>
+        <form name="Estados" >
+            <select onchange="cambiar(this.value)">
+                <option selected="selected">Seleccione una opcion</option>
+                <% Productos.forEach(function(Productos) { %>
+                    <option value="<%= Productos.nom_est %>"><%= Productos.nom_est %></option>         
+                <% }); %>
+            </select>
+        </form>
+        <div id="municipios">
+            <form id=formulario method="post">
+                
+            </form>
         </div>
     <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/AJAX.js"></script>
-    <footer>
-    </footer>
     </body>
 </html>

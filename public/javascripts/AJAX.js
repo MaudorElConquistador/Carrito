@@ -1,68 +1,64 @@
-function Alerta(e) {
-      alert("Holi");
+function limpiardiv(e) {
+    document.getElementById("municipios").innerHTML= "";
 }
-/*function xhr(url, method="POST"){
-    const req = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-    req.open(method, url, true);
-    return req;
-}
-
-
-function Holi(argument) {
-    var nombre = document.getElementById('nombre').value;
-    addCarrito(nombre); 
-}
-
-function addCarrito(nombre){
-    const req = xhr("/anadir");
-    req.onreadystatechange = () => {
-        if (req.readyState === 4){
-            if (req.status === 200){
-                document.getElementById('nombre').style.visibility = visible;
-            } else {
-                console.log("Valio caca");
-            }
+function guardar(e) {
+    var xhr = new XMLHttpRequest();
+    alert("ok si esta entrando a la funcion");
+    xhr.open("POST","anadir",true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            var x = document.getElementById("nombre");
+            alert("Holi esto es lo que se recibe " + xhr.responseText);              
         }
-    };
-    req.setRequestHeader("Content-type", "application/json");
-    req.send(JSON.stringify({id_ingredient: ingredient, quantity: quantity, unit: unit}));
+        else{
+            document.getElementById("municipios").innerHTML= "Upps algo ha sucedido asegurese que su navegador soporte javascript";           
+        }
+    }
 }
-
-/*
-Esta madre hacerla con xhr
-$(function() {
-  $('#Tabla').hide();
-
-  $('#holi').click(function() {
-
-    $.getJSON('/estados', function(data) {
-        $('<li>').appendTo('#facts').text(data);
-    });
-    $('#Tabla').show();
-    
-    return false;
-  });
-  /*
-  $('#add-new-fact').click(function() {
-    
-    var name = $('#right-column h2').text();
-    var fact = $('#new-fact').val();
-  
-    $.ajax({
-      type: "POST",
-      url: "/hero/add-fact",
-      data: JSON.stringify({ name: name, fact: fact }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      success: function(data) {
-        $('<li>').appendTo('#facts').text(fact);
-        $('#new-fact').val('');
-      },
-      error: function(err) {
-        var msg = 'Status: ' + err.status + ': ' + err.responseText;
-        alert(msg);
-      }
-    });
-    return false;
-  });*/
-
+function tabla(longitud, json) {
+    for (var i = 0; i <= longitud; i++) {
+        var formulario = document.createElement("form");
+        formulario.method = "POST";
+        var salto = document.createElement("br");
+        var nombre = document.createElement("input");
+        var precio = document.createElement("input");
+        var comprar = document.createElement("input");
+        comprar.onclick = () => guardar();
+        comprar.setAttribute("type", "submit");
+        precio.setAttribute("type", "text");
+        precio.setAttribute("readonly", "readonly");
+        nombre.setAttribute("type", "text");
+        nombre.setAttribute("readonly", "readonly");
+        nombre.id = "nombre";
+        comprar.setAttribute("value", "comprar");
+        nombre.setAttribute("value", JSON.stringify(json[i].nom_mun));
+        precio.setAttribute("value", JSON.stringify(json[i].pre_mun));
+        formulario.appendChild(nombre);
+        formulario.appendChild(precio);
+        formulario.appendChild(comprar);
+        document.getElementById("municipios").appendChild(formulario);
+    }//Fin del for
+}
+function cambiar(estado){
+    var xhr = new XMLHttpRequest();
+    console.log("Hola este es el valor seleccionado " + estado);
+    xhr.open("POST","estados",true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send(JSON.stringify({hola: estado}));
+    console.log("Si entro a la funcion");
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            limpiardiv();
+            console.log("No se esadas " + xhr.responseText);
+            var otra = JSON.parse(this.responseText);
+            var longitud = otra.length;
+            var municipios = xhr.responseText;
+            console.log("Esta es la longitud sin parsear " + JSON.stringify(otra[0]));    
+            tabla(longitud, otra);    
+        }
+        else{
+            document.getElementById("municipios").innerHTML= "Upps algo ha sucedido asegurese que su navegador soporte javascript";           
+        }
+    }
+}

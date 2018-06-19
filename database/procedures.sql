@@ -55,7 +55,10 @@ CREATE PROCEDURE setCarrito(IN nom VARCHAR(100),precio MEDIUMINT, categoria VARC
     BEGIN
         INSERT INTO Carrito VALUES(categoria, nom, precio,id_id);
     END$$
-
+CREATE PROCEDURE EliminarProducto(IN nom VARCHAR(100))
+    BEGIN
+        DELETE FROM Carrito WHERE nom_loc = nom;
+    END$$
 CREATE PROCEDURE getCarrito()
     BEGIN
         SELECT * FROM Carrito;

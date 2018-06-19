@@ -15,24 +15,30 @@ CREATE PROCEDURE BeforeDropUser(IN id_usu)
     BEGIN
       CALL modifystate(id_usu);
     END$$
-
 CREATE PROCEDURE DropUsers(IN id INT)
     BEGIN
         CALL BeforeDropUser(id);
         DELETE FROM usuario WHERE id_usu = id;
     END$$
-CREATE PROCEDURE DropStates(IN nomest VARCHAR(100))
+CREATE PROCEDURE DropMuniInStates(IN id_est INT)
     BEGIN
-        DELETE FROM States WHERE nom_est = nomest;
+        DELETE FROM Muni_in_Estado WHERE id_est = id_est;
+    END$$
+CREATE PROCEDURE DropStates(IN id INT)
+    BEGIN
+        CALL DropMuniInStates(id);
+        DELETE FROM estados WHERE id_est = id;
+    END$$
+CREATE PROCEDURE DropMuni (IN nommun VARCHAR)
+    BEGIN
+      DELETE FROM municipios WHERE nom_mun = nonmun;
     END$$
 CREATE PROCEDURE BESTBUYSTATES()
     BEGIN
-    SELECT id_usu AS usuario, COUNT(*) AS propiedades FROM ownlocation GROUP BY id_usu HAVING estados=(SELECT COUNT(*)max FROM ownlocation GROUP BY id_usu ORDER BY max DESC LIMIT 1);
+      SELECT id_usu AS usuario, COUNT(*) AS propiedades FROM ownlocation GROUP BY id_usu HAVING propiedades=(SELECT COUNT(*)max FROM ownlocation GROUP BY id_usu ORDER BY max DESC LIMIT 1);
     END$$
 CREATE PROCEDURE BESTBUYSTATES()
     BEGIN
-    SELECT id_usu AS usuario, COUNT(*) AS propiedades FROM ownlocation GROUP BY id_usu HAVING estados=(SELECT COUNT(*)max FROM ownlocation GROUP BY id_usu ORDER BY max ASC LIMIT 1);
+      SELECT id_usu AS usuario, COUNT(*) AS propiedades FROM ownlocation GROUP BY id_usu HAVING propiedades=(SELECT COUNT(*)max FROM ownlocation GROUP BY id_usu ORDER BY max ASC LIMIT 1);
     END$$
-
-
 /*hacer procedure que obtenga los id estados y id municipios de la tabla carrito, buscar su id */

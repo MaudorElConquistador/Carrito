@@ -1,47 +1,43 @@
 header{
 	text-align: center;
-	background-color: #202020;
-	color: gray;
-	width: 100%;
-	height: 150%;
-	display: flex;
 }
 body{
-	background-color: #202020;
-	background-size: cover;
+	background-color: #585858;
+	font-family: fantasy;
 	margin: 0%;
 	padding: 0%;
 }
 main{
 	display: flex;
 	width: 100%;
-	height: 50rem;
+	height: 100%;
 }
 form{
-	width: 50%;
-	height: 50%;
+	width: 30%;
+	height: 30%;
 	border-radius: 15px;
-    background: white;
-    opacity: 0.7;
+    background: #797D7F;
     margin: 3%;
     padding: 1%;
-    display: inline-grid;
+    display: block;
 }
 form > input[type="submit"]{
 	border: none;
 	margin: 1%;
-	background: red;
+	background: #585858;
 	padding: 10px;
 	font-size: 18px;
 	border-radius: 5px;
 	position: relative;
 	transition: all 500ms ease; 
 }
+#municipios{
+		transition: all 500ms ease;
+}
 form > input[type="submit"]:hover{
 	border: none;
 	margin: 1%;
-	background: #70b1ff;
-	color: white;
+	background: #ECF0F1;
 	padding: 10px;
 	font-size: 18px;
 	border-radius: 5px;
@@ -51,8 +47,8 @@ form > input[type="submit"]:hover{
 form > input:not([type="submit"]){
 	border: none;
 	margin: 1%;
-	background: black;
-	height: 10%;
+	background: #585858;
+	height: 90%;
 	padding: 10px;
 	font-size: 18px;
 	border-radius: 5px;
@@ -66,9 +62,4 @@ form > input:not([type="submit"]):focus{
 	font-size: 18px;
 	border-radius: 5px;
 	transition: all 500ms ease; 
-}
-footer{
-	background-color: black;
-	width: 100%;
-	height: 30rem;
 }

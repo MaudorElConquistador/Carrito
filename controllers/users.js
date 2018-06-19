@@ -23,7 +23,7 @@ router.post('/login', function(req, res) {
     //console.log("Esta es la sesion" + JSON.stringify(req.session));
     if (req.session.nombre == undefined) {
         //Obtiene el nombre de usuario y lo valida
-        console.log("Esto es el cuerpo "+req.body);
+        console.log("Esto es el cuerpo "+JSON.stringify(req.body));
         const usuario = req.body.nombreusu;
         UsuarioInvalido = val.validateName(usuario);
         if (UsuarioInvalido != false )
@@ -65,11 +65,15 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/estados',function(req, res){
-    const nombre = req.body.button;
-    console.log(nombre);
+    console.log("los que esta aca " +  req);
+    console.log("Lo que està aqui " +req.body);
+    const nombre = req.body.hola;
+    console.log("Datos enviados de la peticion ajax" + nombre);
     con.estados(nombre).then( result => {
-        console.log("Esto me devuelve" + JSON.stringify(result));
-        return res.render("municipios", {title:"Municipios", Productos:result});
+        console.log("Holi este es el objeto recibido" + JSON.stringify(result));
+        res.json(result);
+        /*console.log("Esto me devuelve" + JSON.stringify(result));
+        return res.render("municipios", {title:"Municipios", Productos:result});*/
     });
 });
 
@@ -78,9 +82,9 @@ router.post('/anadir',function (req, res) {
     con.ReCarrito(req.body).then(result =>{
         console.log("Esto es lo que me devuelve pero parece que no agarra" + result);
         if (result.length > 2)
-            return res.render("error", {title:"Error al agregar carrito", descripcion:"Ya ha agragado ese producto"});
+            res.send("Esto ya se ha agragado");
         console.log("Esto es del carrito " + JSON.stringify(req.body));
-        con.AgregarCarrito(req.body);
+        //con.AgregarCarrito(req.body);
         con.ObtenerProductos().then(result =>{
             if (result.length > 0) {
                 con.SumaPrecio().then(succes =>{
@@ -94,7 +98,7 @@ router.post('/anadir',function (req, res) {
     });
 });
 
-router.post('/compra', function(req, res){
+router.get('/compra', function(req, res){
   con.SumaPrecio().then(succes =>{
     var suma =succes[0].valor_total;
     var id = localStorage.getItem('Usuario');

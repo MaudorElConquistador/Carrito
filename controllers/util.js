@@ -1,5 +1,6 @@
 var val = {
     validateName: name => {
+        console.log(name);
         if (name.length < 3)
             return "El nombre debe contener al menos 3 caracteres";
         if (name.length > 30)

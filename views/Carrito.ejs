@@ -19,20 +19,11 @@
                 <div style="visibility: hidden;">
                   <input type="text" name="Id" readonly="readonly " value="<%= Productos.id_id%>">
                 </div>
-                
                 <br>
             <% }); %>
             <h3>Precio total <%= Precio%></h3>
             <input type="submit" value="Finalizar comprar">
         </form>
-        <div>
-            <form>
-                <div style="visibility: hidden;">
-                    <input type="text" name="Nom" readonly="readonly" value="<%= Productos.nom_loc %>">
-                </div>
-                <input type="submit" value="Eliminar del carrito">
-            </form>
-        </div>
         </div>
          <% } %>
          <% if (Descripcion) {%>
