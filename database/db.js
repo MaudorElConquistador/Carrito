@@ -1,5 +1,6 @@
 var mysql = require('mysql');
 const escape = require("mysql").escape;
+const val = require("../database/dbValidacion.js");
 
 var con = mysql.createConnection({
    host: 'localhost',
@@ -64,21 +65,37 @@ module.exports = {
   },
   AgregarCarrito: nombre =>{
     return new Promise((resolve, reject) => {
-      con.query("CALL setCarrito (?,?,?,?)", [nombre.NomLoc, nombre.PreLoc, nombre.Cat, nombre.IdLoc],(err, result) => {
+      console.log("esto es el resultado" + nombre);
+      val.FunPrueba().then(result => {
+        return result;
+      });
+      /*val.BuscarLocalidad(nombre).then(result => {
+        if (result == true) {
+          con.query("CALL setCarrito (?,?,?)", [nombre.nom, nombre.pre, nombre.cat],(err, result) => {
             if (err)
-                return err;
-            resolve(console.log("Se registró en carrito"));
-        });
+                return console.log("Surgio un error " +  err);
+            if (nombre.cat == "MUN"){
+              return true;
+            }
+            else{
+              return true;
+            }
+          });
+        }
+        if (result == false) {
+          return false;
+        }  
+      });*/
     });
   },
   ReCarrito: nombre =>{
     return new Promise((resolve, reject) => {
       console.log("Esto es lo que me devuelve "+ nombre);
       con.query("SELECT *FROM Carrito WHERE nom_loc = ?", [nombre.NomLoc], (err, result) => {
-            if (err)
-                return err;
-            console.log("Holi esto es lo que devuelve" + result);
-            return resolve(JSON.stringify(result));
+          if (err)
+            return err;
+          console.log("Holi esto es lo que devuelve" + result);
+          return resolve(JSON.stringify(result));
         });
     });
   },
@@ -117,20 +134,21 @@ module.exports = {
         nombre.forEach((nombre)=>{
           console.log("Nombre: " + JSON.stringify(nombre));
           console.log("Usuario " + usuario);
+          con.query()
           con.query("CALL OwnLocation(?,?,?)",[nombre.id_loc, usuario, nombre.id_id],(err, result) => {
-            if (err)
-                return err;
-            console.log(result);
-            return resolve(console.log(result));
-        });
+              if (err)
+                  return err;
+              console.log(result);
+              return resolve(console.log(result));
+          });
       });
     });
   },
   Eliminar: e =>{
     return new Promise((resolve, reject) => {
-      con.query("CALL BorrarCarrito()",(err, result) => {
+      con.query("TRUNCATE TABLE carrito",(err, result) => {
           if (err)
-              return err;
+            console.log("Hola como esta joven " + err);
           console.log("Se supone que ya se modifico");
           return resolve(result);
       });

@@ -4,13 +4,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Estados</title>
         <link rel="stylesheet" href="/css/estilo_inicio.css"/>
+        <link rel="stylesheet" type="text/css" href="/css/api.css">
     </head>
     <body>
         <header>
-            <p>Bienvenido <%= nom %></p>
-            <a href="/compra">Ir a su carrito</a>
+            <%- include('apiheader.ejs'); %>
         </header>
-        <h2>Eliga el </h2>
+        <h2>Eliga el estado del cual quiere ver los municipio</h2>
         <form name="Estados" >
             <select onchange="cambiar(this.value)">
                 <option selected="selected">Seleccione una opcion</option>
@@ -20,7 +20,7 @@
             </select>
         </form>
         <div id="municipios">
-            <form id=formulario method="post">
+            <form method="post">
                 
             </form>
         </div>

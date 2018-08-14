@@ -3,32 +3,32 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Carrito</title>
-        <link rel="stylesheet" href="css/estilo_index.css"/>
+        <link rel="stylesheet" href="/css/estilo_inicio.css"/>
     </head>
     <body>
-        <header>
-            <h1><%= title %></h1>
-        </header>>
+        <header>            
+            <%- include('apiheader.ejs'); %>
+        </header>
         <div>
-        <% if (Productos) { %>
-        <form action="compra" method="post">
-            <% Productos.forEach(function(Productos) { %>
-                <input type="text" name="Cat" id="nombre" readonly="readonly" value="<%= Productos.id_loc %>">
-                <input type="text" name="Nom" readonly="readonly" value="<%= Productos.nom_loc %>">
-                <input type="text" name="Pre" readonly="readonly" value="<%= Productos.pre_loc %>">
-                <div style="visibility: hidden;">
-                  <input type="text" name="Id" readonly="readonly " value="<%= Productos.id_id%>">
-                </div>
-                <br>
-            <% }); %>
-            <h3>Precio total <%= Precio%></h3>
-            <input type="submit" value="Finalizar comprar">
-        </form>
-        </div>
-         <% } %>
-         <% if (Descripcion) {%>
-         <div><h2>No tiene productos agregados al carrito</h2></div>
-         <% } %>
+        <% if (Productos.length > 0) { %>
+            <form action="compra" method="post">
+                <% Productos.forEach(function(Productos) { %>
+                    <input type="text" name="Cat" id="nombre" readonly="readonly" value="<%= Productos.id_loc %>">
+                    <input type="text" name="Nom" readonly="readonly" value="<%= Productos.nom_loc %>">
+                    <input type="text" name="Pre" readonly="readonly" value="<%= Productos.pre_loc %>">
+                    <div style="visibility: hidden;">
+                      <input type="text" name="Id" readonly="readonly " value="papaya de celaya">
+                    </div>
+                    <br>
+                <% }); %>
+                <h3>Precio total <%= Precio%></h3>
+                <input type="submit" value="Finalizar comprar">
+            </form>
+            </div>
+        <% } %>
+        <% if (Productos.length == 0) {%>
+            <div><h2>No tiene productos agregados al carrito</h2></div>
+        <% } %>
     <a href="/inicio">Página principal</a>
     <script type="text/javascript" src="/javascripts/jquery.min.js"></script>
     <script type="text/javascript" src="/javascripts/AJAX.js"></script>

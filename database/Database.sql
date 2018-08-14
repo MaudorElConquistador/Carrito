@@ -44,8 +44,7 @@ CREATE TABLE Muni_in_Estado(
 CREATE TABLE carrito(
 		id_loc VARCHAR(10) DEFAULT NULL,
 		nom_loc VARCHAR(100) NOT NULL,
-		pre_loc MEDIUMINT NOT NULL,
-		id_id  MEDIUMINT NOT NULL
+		pre_loc MEDIUMINT NOT NULL
 );
 CREATE TABLE ownlocation(
 		id_own MEDIUMINT(10) AUTO_INCREMENT,

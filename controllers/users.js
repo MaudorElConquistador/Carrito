@@ -21,7 +21,7 @@ router.use(session({
 
 router.post('/login', function(req, res) {
     //console.log("Esta es la sesion" + JSON.stringify(req.session));
-    if (req.session.nombre == undefined) {
+    if (req.session.usu == undefined) {
         //Obtiene el nombre de usuario y lo valida
         console.log("Esto es el cuerpo "+JSON.stringify(req.body));
         const usuario = req.body.nombreusu;
@@ -36,7 +36,7 @@ router.post('/login', function(req, res) {
         //Se le pasa como parametros el nombre y la contraseña que estan dentro de req.body
         con.IniciarSesion(req.body).then(result =>{
             if (result.length !=0) {//Se usa para saber si hay un registro, si hay una cuenta te regresa un numero mayor a cero
-              console.log("esl sadas "+ JSON.stringify(result[0]));
+                console.log("esl sadas "+ JSON.stringify(result[0]));
                 id = result[0].id_usu;
                 dinero = result[0].cash_usu;
                 if (result[0].cash_usu != undefined) {
@@ -45,10 +45,7 @@ router.post('/login', function(req, res) {
                     localStorage.setItem('Usuario',JSON.stringify(id));
                   }
                 con.Productos().then(result =>{
-                    req.session.dinero = dinero;
-                    req.session.nombre = usuario;
-                    req.session.id = id;
-                    console.log(req.session.id);
+                    req.session.usu = usuario;
                     res.render("inicio", {title:"Carrito", nom:usuario.nom_usu, Productos: result});
                 });
             }
@@ -58,42 +55,44 @@ router.post('/login', function(req, res) {
         });
     }else{
         con.Productos().then(result =>{
-            res.render("inicio", {title:"Carrito", nom:req.session.nombre, Productos: result});
+            res.render("inicio", {title:"Carrito", nom:req.session.usu, Productos: result});
         });
     }
+});
 
+router.get('/inicio',function(req, res){
+    console.log("Esta es la sesion del usuario"+req.session.usu);
+    con.Productos().then(result =>{
+            res.render("inicio", {title:"Carrito", nom:req.session.usu, Productos: result});
+        });
 });
 
 router.post('/estados',function(req, res){
-    console.log("los que esta aca " +  req);
-    console.log("Lo que està aqui " +req.body);
+    console.log("Hola esta es la peticion de aca");
+    console.log("Porque esto no esta funcionando");
+    console.log("Lo que está aqui " + JSON.stringify(req.body));
     const nombre = req.body.hola;
     console.log("Datos enviados de la peticion ajax" + nombre);
     con.estados(nombre).then( result => {
         console.log("Holi este es el objeto recibido" + JSON.stringify(result));
         res.json(result);
-        /*console.log("Esto me devuelve" + JSON.stringify(result));
-        return res.render("municipios", {title:"Municipios", Productos:result});*/
     });
 });
 
 router.post('/anadir',function (req, res) {
-  console.log("A ver si aparece "+ JSON.stringify(req.body));
-    con.ReCarrito(req.body).then(result =>{
-        console.log("Esto es lo que me devuelve pero parece que no agarra" + result);
-        if (result.length > 2)
-            res.send("Esto ya se ha agragado");
-        console.log("Esto es del carrito " + JSON.stringify(req.body));
-        //con.AgregarCarrito(req.body);
-        con.ObtenerProductos().then(result =>{
-            if (result.length > 0) {
-                con.SumaPrecio().then(succes =>{
-                    return res.render("Carrito", {title:"Sus Productos", Productos:result, Precio:succes[0].valor_total, Descripcion:"Holi"});
-                });
-            }
-            else{
-                return res.render("Carrito",{title:"Sus Productos", Descripcion:"No tiene ningún producto agragado al carrito", Productos: 2 });
-            }
+    console.log("Aqui esta el error" + req.body);
+        con.AgregarCarrito(req.body).then(succes => {
+        console.log("Se esta enviando esto " + succes);
+        if (succes == true)
+            res.send(succes);
+        res.send("No se encontro ese estado en nuestra base de datos");
+    });
+});
+
+router.get('/carrito',function(req, res) {
+    con.ObtenerProductos().then(localidades=>{
+        con.SumaPrecio().then(precio => {
+            res.render("Carrito", {title:"Sus productos" , Productos:localidades, Precio:precio});
         });
     });
 });
@@ -125,8 +124,11 @@ router.post('Eliminar', function (req,res) {
 
 });
 
-router.post('/logout',function (req, res) {
-	req.session.nombre = null;
+router.get('/salir',function (req, res) {
+    con.Eliminar().then( ()=>{
+        req.session.usuario = null;
+        res.sendFile('./index.html', {root: path.join(__dirname, "../public/html")});
+    });
 });
 
 module.exports = router;
